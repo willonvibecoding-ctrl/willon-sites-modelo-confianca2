@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoltExpert — Instalações Elétricas, Quadros & Manutenção Técnica</title>
+<meta name="description" content="Eletricistas certificados e engenharia elétrica conforme a NBR-5410. Troca de fiação, quadros com DR/DPS, padrão de entrada, laudos e garantia por escrito de 1 ano.">
+
+<!-- Google Fonts: Sora (Display) + Plus Jakarta Sans (Texto) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS via CDN & Lucide Icons -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Plus Jakarta Sans', 'sans-serif'],
+          display: ['Sora', 'sans-serif'],
+        },
+        colors: {
+          graphite: {
+            950: '#090D14',
+            900: '#0F141C',
+            850: '#161D27',
+            800: '#1E2633',
+            700: '#2B3545',
+          },
+          electric: {
+            DEFAULT: '#F59E0B',
+            light: '#FBBF24',
+            dark: '#D97706',
+          },
+          cyanVolt: '#06B6D4',
+          metal: {
+            50: '#F8FAFC',
+            100: '#F1F5F9',
+            200: '#E2E8F0',
+            800: '#1E293B',
+          }
+        },
+        boxShadow: {
+          electricGlow: '0 10px 30px -8px rgba(245, 158, 11, 0.45)',
+          card: '0 12px 32px -8px rgba(15, 20, 28, 0.08)',
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-padding-top: 96px; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  h1, h2, h3, .font-display { font-family: 'Sora', sans-serif; }
+
+  .bg-noise {
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  .grad-hero-electric {
+    background: radial-gradient(120% 120% at 100% 0%, #1A2433 0%, #0F141C 50%, #090D14 100%);
+  }
+
+  .circuit-grid {
+    background-image:
+      linear-gradient(to right, rgba(245, 158, 11, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(245, 158, 11, 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .faq-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+  }
+  .faq-item.open .faq-content {
+    max-height: 400px;
+  }
+  .faq-item.open .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-chevron { transition: transform 0.3s ease; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .focus-ring:focus-visible {
+    outline: 2px solid #F59E0B;
+    outline-offset: 3px;
+  }
+
+  ::selection { background: #F59E0B; color: #090D14; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+
+<body class="bg-white text-slate-900 antialiased">
+
+<!-- ================= 1. PREVIEW RIBBON ================= -->
+<div class="bg-graphite-950 text-white text-xs sm:text-sm py-2 px-4 relative z-[60] border-b border-white/10">
+  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+    <p class="leading-tight">
+      Você está visualizando o <span class="font-bold text-electric-light">Modelo Confiança 2</span> da <span class="font-bold">Willon Sites</span>
+    </p>
+    <a href="https://wa.me/5511974121551?text=Ol%C3%A1!%20Quero%20o%20site%20Modelo%20Confianca%202" target="_blank" rel="noopener noreferrer"
+       class="focus-ring inline-flex items-center gap-1.5 bg-electric hover:bg-electric-light text-graphite-950 font-bold text-xs px-4 py-1 rounded-full transition-colors shadow-md whitespace-nowrap">
+      Quero este site
+      <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+    </a>
+  </div>
+</div>
+
+<!-- ================= 2. HEADER / NAVBAR ================= -->
+<header id="header" class="sticky top-0 z-50 bg-graphite-900/95 backdrop-blur-md border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20 gap-4">
+      
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 focus-ring rounded-lg shrink-0">
+        <div class="w-10 h-10 rounded-xl bg-electric flex items-center justify-center shadow-electricGlow text-graphite-950 shrink-0">
+          <i data-lucide="zap" class="w-5 h-5 fill-current"></i>
+        </div>
+        <span class="font-display text-xl sm:text-2xl font-extrabold text-white tracking-tight whitespace-nowrap">
+          Volt<span class="text-electric-light">Expert</span>
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center gap-5 xl:gap-7 text-[13px] xl:text-sm font-medium text-slate-300 shrink-0">
+        <a href="#servicos" class="hover:text-electric-light transition-colors focus-ring rounded whitespace-nowrap">Serviços</a>
+        <a href="#diferenciais" class="hover:text-electric-light transition-colors focus-ring rounded whitespace-nowrap">Por Que Escolher</a>
+        <a href="#processo" class="hover:text-electric-light transition-colors focus-ring rounded whitespace-nowrap">Como Trabalhamos</a>
+        <a href="#depoimentos" class="hover:text-electric-light transition-colors focus-ring rounded whitespace-nowrap">Depoimentos</a>
+        <a href="#faq" class="hover:text-electric-light transition-colors focus-ring rounded whitespace-nowrap">Dúvidas</a>
+      </nav>
+
+      <!-- Right CTA -->
+      <div class="hidden lg:flex items-center gap-4 xl:gap-6 shrink-0">
+        <a href="tel:+5511974121551" class="flex items-center gap-2 text-slate-300 hover:text-white text-xs xl:text-sm font-semibold transition-colors focus-ring rounded whitespace-nowrap">
+          <i data-lucide="phone-call" class="w-4 h-4 text-electric-light shrink-0"></i>
+          <span>(11) 97412-1551</span>
+        </a>
+        <a href="#triagem"
+           class="focus-ring inline-flex items-center gap-2 bg-electric hover:bg-electric-light text-graphite-950 font-bold text-xs xl:text-sm px-4 xl:px-5 py-2.5 rounded-full transition-all shadow-electricGlow hover:scale-105 whitespace-nowrap">
+          <i data-lucide="message-circle" class="w-4 h-4 shrink-0"></i>
+          <span>Orçamento Rápido</span>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button id="menu-btn" aria-label="Abrir menu" aria-expanded="false" class="lg:hidden focus-ring text-white p-2 rounded-lg shrink-0">
+        <i data-lucide="menu" class="w-7 h-7" id="icon-menu"></i>
+        <i data-lucide="x" class="w-7 h-7 hidden" id="icon-close"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="lg:hidden max-h-0 opacity-0 overflow-hidden transition-all duration-300">
+      <nav class="flex flex-col gap-1 pb-6 text-slate-300 font-medium border-t border-white/10 pt-4">
+        <a href="#servicos" class="mobile-link py-3 px-3 rounded-lg hover:bg-white/5 hover:text-electric-light transition-colors">Serviços</a>
+        <a href="#diferenciais" class="mobile-link py-3 px-3 rounded-lg hover:bg-white/5 hover:text-electric-light transition-colors">Por Que Escolher</a>
+        <a href="#processo" class="mobile-link py-3 px-3 rounded-lg hover:bg-white/5 hover:text-electric-light transition-colors">Como Trabalhamos</a>
+        <a href="#depoimentos" class="mobile-link py-3 px-3 rounded-lg hover:bg-white/5 hover:text-electric-light transition-colors">Depoimentos</a>
+        <a href="#faq" class="mobile-link py-3 px-3 rounded-lg hover:bg-white/5 hover:text-electric-light transition-colors">Dúvidas</a>
+        <a href="#triagem"
+           class="mobile-link mt-3 flex items-center justify-center gap-2 bg-electric text-graphite-950 font-bold text-sm px-5 py-3 rounded-full">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          Solicitar Orçamento no WhatsApp
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- ================= 3. HERO SECTION ================= -->
+<section class="relative grad-hero-electric bg-noise overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-28">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+
+      <!-- Coluna Esquerda: Proposta de Valor -->
+      <div class="lg:col-span-7 reveal">
+        <span class="inline-flex items-center gap-2 bg-electric/15 border border-electric/30 text-electric-light text-xs font-bold tracking-wider px-4 py-2 rounded-full uppercase">
+          ⚡ Engenharia Elétrica &amp; Conformidade NBR-5410
+        </span>
+
+        <h1 class="font-display mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] text-white tracking-tight">
+          Sua instalação elétrica.<br>
+          <span class="text-electric-light">Nossa obsessão técnica.</span>
+        </h1>
+
+        <p class="mt-6 text-slate-300 text-base sm:text-lg max-w-xl leading-relaxed">
+          Segurança absoluta para sua residência ou empresa. Fiação dimensionada por cálculo técnico, quadros com proteção DR/DPS e 1 ano de garantia com laudo formal.
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row gap-4">
+          <a href="#triagem"
+             class="focus-ring group inline-flex items-center justify-center gap-2 bg-electric hover:bg-electric-light text-graphite-950 font-bold px-8 py-4 rounded-full transition-all shadow-electricGlow hover:scale-105">
+            Pedir Orçamento Gratuito
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+          <a href="#servicos" class="focus-ring inline-flex items-center justify-center gap-2 border border-slate-600 text-slate-200 hover:border-electric-light hover:text-white font-semibold px-8 py-4 rounded-full transition-colors">
+            Ver Especialidades
+          </a>
+        </div>
+
+        <!-- Micro-Prova Social -->
+        <div class="mt-10 flex flex-wrap items-center gap-6 pt-6 border-t border-white/10">
+          <div class="flex items-center gap-3">
+            <div class="flex text-electric-light">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <p class="text-xs text-slate-300 font-medium"><strong class="text-white">4.9 / 5.0</strong> no Google (+420 avaliações)</p>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-300">
+            <i data-lucide="shield-check" class="w-4 h-4 text-electric-light"></i>
+            <span>Garantia de 1 ano em peças e mão de obra</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna Direita: Fotografia de Alto Impacto -->
+      <div class="lg:col-span-5 reveal flex justify-center" style="transition-delay: 0.15s">
+        <div class="relative w-full max-w-lg">
+          <div class="absolute -inset-1.5 bg-gradient-to-tr from-electric/30 to-cyanVolt/20 rounded-[2rem] blur-xl opacity-70"></div>
+          
+          <div class="relative rounded-[2rem] overflow-hidden border border-white/15 shadow-2xl aspect-[4/3] bg-graphite-950">
+            <img src="./eletrica-hero.webp" 
+                 alt="Eletricista técnico certificado utilizando multímetro digital em quadro elétrico industrial" 
+                 class="w-full h-full object-cover object-center">
+          </div>
+
+          <!-- Badge Flutuante de Autoridade -->
+          <div class="absolute -bottom-5 -left-4 sm:left-4 bg-graphite-900/95 border border-white/15 rounded-2xl shadow-xl px-5 py-3.5 flex items-center gap-3.5 backdrop-blur-md">
+            <div class="w-10 h-10 rounded-xl bg-electric/20 text-electric-light flex items-center justify-center shrink-0">
+              <i data-lucide="check-check" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-white leading-tight">100% Conforme NBR-5410</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Laudos e ART/TRT inclusos</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. FAIXA DE CONFIANÇA (TRUST SIGNALS) ================= -->
+<section class="bg-graphite-950 border-y border-white/10 py-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center reveal">
+      
+      <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
+        <p class="font-display text-3xl sm:text-4xl font-extrabold text-electric-light">12+</p>
+        <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1">Anos de Engenharia Elétrica</p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
+        <p class="font-display text-3xl sm:text-4xl font-extrabold text-electric-light">+3.400</p>
+        <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1">Imóveis Atendidos e Seguros</p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
+        <p class="font-display text-3xl sm:text-4xl font-extrabold text-electric-light">CFT/CREA</p>
+        <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1">Profissionais Registrados</p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
+        <p class="font-display text-3xl sm:text-4xl font-extrabold text-electric-light">1 Ano</p>
+        <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1">Garantia Formal por Escrito</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5. QUEBRA DE OBJEÇÕES (DORES X SOLUÇÃO) ================= -->
+<section id="diferenciais" class="py-24 bg-metal-50 circuit-grid">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="max-w-3xl mx-auto text-center mb-16 reveal">
+      <span class="text-electric-dark text-xs font-bold tracking-[0.2em] uppercase">Eletricidade Segura</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+        Cansado de disjuntor caindo, cheiro de queimado e contas de luz abusivas?
+      </h2>
+      <p class="text-slate-600 text-base sm:text-lg mt-4 leading-relaxed">
+        Eliminamos riscos de choque elétrico e incêndio com diagnósticos precisos por termografia e projetos dimensionados para a carga real dos seus equipamentos.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- Card 1 -->
+      <div class="reveal bg-white rounded-3xl p-8 border border-slate-200/80 shadow-card hover:-translate-y-1 transition-all">
+        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-electric-dark mb-6">
+          <i data-lucide="shield-alert" class="w-6 h-6"></i>
+        </div>
+        <h3 class="font-display font-bold text-lg text-slate-900 mb-2">Proteção Contra Choque e Fogo</h3>
+        <p class="text-sm text-slate-600 leading-relaxed">
+          Instalação de dispositivos DR (contra choque fatal) e DPS (contra raios e queima de eletrodomésticos) rigorosamente testados.
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="reveal bg-white rounded-3xl p-8 border border-slate-200/80 shadow-card hover:-translate-y-1 transition-all" style="transition-delay: 0.05s">
+        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-electric-dark mb-6">
+          <i data-lucide="file-spreadsheet" class="w-6 h-6"></i>
+        </div>
+        <h3 class="font-display font-bold text-lg text-slate-900 mb-2">Orçamento Fechado por Escrito</h3>
+        <p class="text-sm text-slate-600 leading-relaxed">
+          Lista clara de materiais homologados pelo Inmetro e valor da mão de obra sem alterações ou cobranças extras inesperadas.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="reveal bg-white rounded-3xl p-8 border border-slate-200/80 shadow-card hover:-translate-y-1 transition-all" style="transition-delay: 0.1s">
+        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-electric-dark mb-6">
+          <i data-lucide="sparkles" class="w-6 h-6"></i>
+        </div>
+        <h3 class="font-display font-bold text-lg text-slate-900 mb-2">Serviço Limpo e Sem Quebra-Quebra</h3>
+        <p class="text-sm text-slate-600 leading-relaxed">
+          Técnicas de passagem de cabos com guias profissionais e conduítes existentes, preservando suas paredes e a limpeza do local.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6. SERVIÇOS EM GRADE ================= -->
+<section id="servicos" class="py-24 bg-white border-t border-slate-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <span class="text-electric-dark text-xs font-bold tracking-[0.2em] uppercase">Especialidades Técnicas</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">Soluções Elétricas Residenciais e Comerciais</h2>
+      <p class="text-slate-600 mt-3">Do reparo de urgência ao projeto completo de infraestrutura elétrica.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Serviço 1 -->
+      <div class="reveal bg-metal-50 rounded-3xl overflow-hidden border border-slate-200/70 hover:shadow-xl transition-all group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="./eletrica-servico1.webp" alt="Troca de fiação e cabos de cobre certificados" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-6">
+          <h3 class="font-display font-bold text-lg text-slate-900 mb-1.5">Troca de Fiação &amp; Redimensionamento</h3>
+          <p class="text-xs text-slate-500 mb-3 font-semibold uppercase tracking-wider text-electric-dark">Cabos Antichama Homologados</p>
+          <p class="text-sm text-slate-600 leading-relaxed mb-5">Substituição completa de fiações antigas, ressecadas ou subdimensionadas, acabando com quedas de tensão e desperdício de energia.</p>
+          <a href="https://wa.me/5511974121551?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20Troca%20de%20Fia%C3%A7%C3%A3o." target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-1.5 text-xs font-bold text-electric-dark hover:text-slate-900 transition-colors">
+            Solicitar orçamento deste serviço →
+          </a>
+        </div>
+      </div>
+
+      <!-- Serviço 2 -->
+      <div class="reveal bg-metal-50 rounded-3xl overflow-hidden border border-slate-200/70 hover:shadow-xl transition-all group" style="transition-delay: 0.05s">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="./eletrica-servico2.webp" alt="Quadro de distribuição com disjuntores, DR e DPS" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-6">
+          <h3 class="font-display font-bold text-lg text-slate-900 mb-1.5">Quadros de Distribuição (QDC)</h3>
+          <p class="text-xs text-slate-500 mb-3 font-semibold uppercase tracking-wider text-electric-dark">Montagem, DR, DPS &amp; Barramentos</p>
+          <p class="text-sm text-slate-600 leading-relaxed mb-5">Divisão balanceada de circuitos com disjuntores termomagnéticos, barramento pente e identificação padronizada por etiquetas.</p>
+          <a href="https://wa.me/5511974121551?text=Ol%C3%A1!%20Gostaria%20de%20or%C3%A7amento%20para%20Quadro%20de%20Distribui%C3%A7%C3%A3o." target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-1.5 text-xs font-bold text-electric-dark hover:text-slate-900 transition-colors">
+            Solicitar orçamento deste serviço →
+          </a>
+        </div>
+      </div>
+
+      <!-- Serviço 3 -->
+      <div class="reveal bg-metal-50 rounded-3xl overflow-hidden border border-slate-200/70 hover:shadow-xl transition-all group" style="transition-delay: 0.1s">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="./eletrica-servico3.webp" alt="Padrão de entrada e poste da concessionária" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-6">
+          <h3 class="font-display font-bold text-lg text-slate-900 mb-1.5">Entrada de Energia &amp; Padrão Concessionária</h3>
+          <p class="text-xs text-slate-500 mb-3 font-semibold uppercase tracking-wider text-electric-dark">Aumento de Carga &amp; Regularização</p>
+          <p class="text-sm text-slate-600 leading-relaxed mb-5">Instalação e adequação de caixas de medição (monofásico, bifásico e trifásico) aprovadas junto à Enel/concessionárias locais.</p>
+          <a href="https://wa.me/5511974121551?text=Ol%C3%A1!%20Preciso%20de%20adequa%C3%A7%C3%A3o%20no%20Padr%C3%A3o%20de%20Entrada." target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-1.5 text-xs font-bold text-electric-dark hover:text-slate-900 transition-colors">
+            Solicitar orçamento deste serviço →
+          </a>
+        </div>
+      </div>
+
+      <!-- Serviço 4 -->
+      <div class="reveal bg-metal-50 rounded-3xl overflow-hidden border border-slate-200/70 hover:shadow-xl transition-all group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="./eletrica-servico4.webp" alt="Iluminação LED técnica e automação" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-6">
+          <h3 class="font-display font-bold text-lg text-slate-900 mb-1.5">Iluminação Arquitetônica &amp; LED</h3>
+          <p class="text-xs text-slate-500 mb-3 font-semibold uppercase tracking-wider text-electric-dark">Fitas, Perfis, Spots &amp; Automação</p>
+          <p class="text-sm text-slate-600 leading-relaxed mb-5">Execução de projetos luminotécnicos com fontes dimerizáveis, sensores de presença e interruptores inteligentes Wi-Fi.</p>
+          <a href="https://wa.me/5511974121551?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20para%20Ilumina%C3%A7%C3%A3o%20e%20LED." target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-1.5 text-xs font-bold text-electric-dark hover:text-slate-900 transition-colors">
+            Solicitar orçamento deste serviço →
+          </a>
+        </div>
+      </div>
+
+      <!-- Serviço 5 -->
+      <div class="reveal bg-metal-50 rounded-3xl overflow-hidden border border-slate-200/70 hover:shadow-xl transition-all group" style="transition-delay: 0.05s">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="./eletrica-servico5.webp" alt="Ponto elétrico de alta potência para ar-condicionado" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-6">
+          <h3 class="font-display font-bold text-lg text-slate-900 mb-1.5">Pontos para Ar-Condicionado &amp; Chuveiros</h3>
+          <p class="text-xs text-slate-500 mb-3 font-semibold uppercase tracking-wider text-electric-dark">Circuitos Exclusivos de Alta Potência</p>
+          <p class="text-sm text-slate-600 leading-relaxed mb-5">Instalação de circuitos independentes para equipamentos pesados, eliminando oscilações de luz quando o chuveiro ou motor liga.</p>
+          <a href="https://wa.me/5511974121551?text=Ol%C3%A1!%20Preciso%20de%20ponto%20el%C3%A9trico%20para%20Ar-Condicionado%20ou%20Chuveiro." target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-1.5 text-xs font-bold text-electric-dark hover:text-slate-900 transition-colors">
+            Solicitar orçamento deste serviço →
+          </a>
+        </div>
+      </div>
+
+      <!-- Serviço 6 -->
+      <div class="reveal bg-metal-50 rounded-3xl overflow-hidden border border-slate-200/70 hover:shadow-xl transition-all group" style="transition-delay: 0.1s">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="./eletrica-servico6.webp" alt="Laudo técnico e termografia elétrica de precisão" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-6">
+          <h3 class="font-display font-bold text-lg text-slate-900 mb-1.5">Laudos Técnicos &amp; Termografia Preventiva</h3>
+          <p class="text-xs text-slate-500 mb-3 font-semibold uppercase tracking-wider text-electric-dark">Emissão de ART/TRT &amp; Inspeção Térmica</p>
+          <p class="text-sm text-slate-600 leading-relaxed mb-5">Inspeção com câmera termográfica para detectar superaquecimentos ocultos, emitindo laudos para seguradoras e bombeiros.</p>
+          <a href="https://wa.me/5511974121551?text=Ol%C3%A1!%20Gostaria%20de%20um%20Laudo%20T%C3%A9cnico%20ou%20Termografia." target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-1.5 text-xs font-bold text-electric-dark hover:text-slate-900 transition-colors">
+            Solicitar orçamento deste serviço →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 7. PROCESSO EM 4 ETAPAS ================= -->
+<section id="processo" class="py-24 bg-graphite-950 text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <span class="text-electric-light text-xs font-bold tracking-[0.2em] uppercase">Processo de Engenharia</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white mt-2">Como Garantimos Sua Instalação Segura</h2>
+      <p class="text-slate-400 mt-3">Metodologia clara e transparente em cada etapa da obra.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+      <div class="hidden lg:block absolute top-8 left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-electric/20 via-electric-light to-electric/20 z-0"></div>
+
+      <!-- Passo 1 -->
+      <div class="reveal text-center relative z-10">
+        <div class="w-16 h-16 rounded-2xl bg-graphite-850 text-electric-light font-display font-extrabold text-xl flex items-center justify-center mx-auto mb-6 shadow-electricGlow border border-electric/30">01</div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Vistoria &amp; Medição</h3>
+        <p class="text-sm text-slate-300 leading-relaxed">Mapeamos a carga instalada, estado dos condutores e aterramento com instrumentos calibrados.</p>
+      </div>
+
+      <!-- Passo 2 -->
+      <div class="reveal text-center relative z-10" style="transition-delay: 0.05s">
+        <div class="w-16 h-16 rounded-2xl bg-graphite-850 text-electric-light font-display font-extrabold text-xl flex items-center justify-center mx-auto mb-6 shadow-electricGlow border border-electric/30">02</div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Orçamento Fechado</h3>
+        <p class="text-sm text-slate-300 leading-relaxed">Você recebe a lista de materiais certificados e o custo de mão de obra formalizado no WhatsApp.</p>
+      </div>
+
+      <!-- Passo 3 -->
+      <div class="reveal text-center relative z-10" style="transition-delay: 0.1s">
+        <div class="w-16 h-16 rounded-2xl bg-graphite-850 text-electric-light font-display font-extrabold text-xl flex items-center justify-center mx-auto mb-6 shadow-electricGlow border border-electric/30">03</div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Execução NBR-5410</h3>
+        <p class="text-sm text-slate-300 leading-relaxed">Eletricistas certificados executam o serviço com ferramentas isoladas e torquímetro nos bornes.</p>
+      </div>
+
+      <!-- Passo 4 -->
+      <div class="reveal text-center relative z-10" style="transition-delay: 0.15s">
+        <div class="w-16 h-16 rounded-2xl bg-graphite-850 text-electric-light font-display font-extrabold text-xl flex items-center justify-center mx-auto mb-6 shadow-electricGlow border border-electric/30">04</div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Teste de Carga &amp; Garantia</h3>
+        <p class="text-sm text-slate-300 leading-relaxed">Testes de fuga de corrente e curto-circuito antes da entrega com emissão do termo de 1 ano.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 8. DEPOIMENTOS ================= -->
+<section id="depoimentos" class="py-24 bg-metal-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <span class="text-electric-dark text-xs font-bold tracking-[0.2em] uppercase">Avaliações Verificadas</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">Quem Contratou a VoltExpert Recomenda</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- Depoimento 1 -->
+      <div class="reveal bg-white rounded-3xl p-8 border border-slate-200/80 shadow-card">
+        <div class="flex text-electric-light gap-1 mb-4">
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+        </div>
+        <p class="text-slate-700 text-sm leading-relaxed mb-6">
+          "Vieram no mesmo dia para um curto no quadro de disjuntores do meu apartamento. Organizaram tudo, colocaram DR e explicaram detalhadamente onde estava a sobrecarga. Trabalho impecável."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-graphite-900 text-electric-light font-bold text-sm flex items-center justify-center">RA</div>
+          <div>
+            <p class="font-bold text-slate-900 text-sm">Renata Alcantara</p>
+            <p class="text-xs text-slate-500">Moema, SP · Reforma de Quadro</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Depoimento 2 -->
+      <div class="reveal bg-white rounded-3xl p-8 border border-slate-200/80 shadow-card" style="transition-delay: 0.05s">
+        <div class="flex text-electric-light gap-1 mb-4">
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+        </div>
+        <p class="text-slate-700 text-sm leading-relaxed mb-6">
+          "Contratamos para regularizar o padrão de entrada trifásico e instalar a fiação de 4 aparelhos de ar-condicionado na nossa clínica. Pontuais, limpos e emitiram o laudo sem burocracia."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-graphite-900 text-electric-light font-bold text-sm flex items-center justify-center">MT</div>
+          <div>
+            <p class="font-bold text-slate-900 text-sm">Marcos Toledo</p>
+            <p class="text-xs text-slate-500">Pinheiros, SP · Comercial</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Depoimento 3 -->
+      <div class="reveal bg-white rounded-3xl p-8 border border-slate-200/80 shadow-card" style="transition-delay: 0.1s">
+        <div class="flex text-electric-light gap-1 mb-4">
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+        </div>
+        <p class="text-slate-700 text-sm leading-relaxed mb-6">
+          "Trocaram toda a fiação da minha casa antiga em 2 dias, sem quebrar nenhuma parede e com identificação perfeita no quadro. Vale cada centavo pela paz de espírito."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-graphite-900 text-electric-light font-bold text-sm flex items-center justify-center">FS</div>
+          <div>
+            <p class="font-bold text-slate-900 text-sm">Fábio Santana</p>
+            <p class="text-xs text-slate-500">Santana, SP · Troca Geral de Fiação</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 9. TRIAGEM & ORÇAMENTO IMEDIATO ================= -->
+<section id="triagem" class="py-20 bg-white border-t border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-gradient-to-br from-graphite-900 via-graphite-950 to-graphite-900 rounded-[2.5rem] p-8 sm:p-12 lg:p-16 border border-white/10 shadow-2xl relative overflow-hidden">
+      
+      <!-- Efeitos de Fundo -->
+      <div class="absolute -top-24 -right-24 w-80 h-80 bg-electric/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-cyanVolt/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="grid lg:grid-cols-12 gap-12 items-center relative z-10">
+        
+        <!-- Texto explicativo -->
+        <div class="lg:col-span-6 reveal">
+          <span class="inline-flex items-center gap-2 bg-electric/15 border border-electric/30 text-electric-light text-xs font-bold tracking-wider px-4 py-2 rounded-full uppercase">
+            ✦ Resposta Técnica no WhatsApp
+          </span>
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white mt-4 leading-tight">
+            Pronto para resolver o problema elétrico do seu imóvel?
+          </h2>
+          <p class="text-slate-300 mt-5 leading-relaxed text-sm sm:text-base">
+            Preencha a triagem ao lado informando o tipo de imóvel e o serviço necessário. Nossos especialistas avaliam a demanda e respondem com agilidade pelo WhatsApp.
+          </p>
+
+          <div class="mt-8 space-y-3.5">
+            <div class="flex items-center gap-3 text-sm text-slate-200">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-electric-light shrink-0"></i>
+              Orçamento detalhado por escrito e sem custos ocultos
+            </div>
+            <div class="flex items-center gap-3 text-sm text-slate-200">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-electric-light shrink-0"></i>
+              Materiais 100% homologados pelo Inmetro (NBR-5410)
+            </div>
+            <div class="flex items-center gap-3 text-sm text-slate-200">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-electric-light shrink-0"></i>
+              Termo de garantia formal de 1 ano para mão de obra
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulário de Triagem Elétrica -->
+        <div class="lg:col-span-6 reveal">
+          <div class="bg-graphite-900/90 border border-white/10 rounded-3xl p-6 sm:p-8 shadow-xl backdrop-blur-md">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+              <div>
+                <p class="text-xs font-bold text-electric-light uppercase tracking-wider">Atendimento Rápido</p>
+                <h3 class="text-lg font-bold text-white font-display mt-0.5">Triagem Elétrica do Imóvel</h3>
+              </div>
+              <span class="w-10 h-10 rounded-xl bg-electric/20 border border-electric/30 flex items-center justify-center text-electric-light">
+                <i data-lucide="zap" class="w-5 h-5"></i>
+              </span>
+            </div>
+
+            <form id="eletricaForm" class="space-y-4">
+              <div>
+                <label for="tipoImovel" class="block text-xs font-semibold text-slate-300 mb-1.5">Tipo de Imóvel</label>
+                <select id="tipoImovel" class="w-full bg-graphite-950 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:border-electric outline-none">
+                  <option value="Apartamento Residencial">Apartamento Residencial</option>
+                  <option value="Casa / Sobrado">Casa / Sobrado</option>
+                  <option value="Comércio / Loja">Comércio / Loja</option>
+                  <option value="Escritório / Empresa">Escritório / Empresa</option>
+                  <option value="Galpão / Indústria">Galpão / Indústria</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="servicoDesejado" class="block text-xs font-semibold text-slate-300 mb-1.5">Qual serviço você precisa?</label>
+                <select id="servicoDesejado" class="w-full bg-graphite-950 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:border-electric outline-none">
+                  <option value="Troca de Fiação Completa">Troca de Fiação Completa / Reforma</option>
+                  <option value="Montagem ou Reforma de Quadro (Disjuntores/DR/DPS)">Montagem/Reforma de Quadro (Disjuntores, DR e DPS)</option>
+                  <option value="Curto-Circuito / Disjuntor Desarmando">Curto-circuito ou disjuntor caindo toda hora</option>
+                  <option value="Padrão de Entrada / Aumento de Carga">Padrão de Entrada / Aumento de carga Enel</option>
+                  <option value="Instalação de Ar-Condicionado / Chuveiro">Circuito para Ar-Condicionado ou Chuveiro</option>
+                  <option value="Iluminação LED / Automação">Projeto de Iluminação LED / Spots / Fitas</option>
+                  <option value="Laudo Técnico / Vistoria para Seguro">Laudo Técnico de Inspeção Elétrica (ART/TRT)</option>
+                  <option value="Outro serviço elétrico">Outro serviço elétrico (quero orientação)</option>
+                </select>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label for="nomeCliente" class="block text-xs font-semibold text-slate-300 mb-1.5">Seu Nome</label>
+                  <input type="text" id="nomeCliente" required placeholder="Ex: Roberto Mendes" class="w-full bg-graphite-950 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:border-electric outline-none placeholder:text-slate-500">
+                </div>
+                <div>
+                  <label for="whatsCliente" class="block text-xs font-semibold text-slate-300 mb-1.5">WhatsApp com DDD</label>
+                  <input type="tel" id="whatsCliente" required placeholder="(11) 98765-4321" class="w-full bg-graphite-950 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:border-electric outline-none placeholder:text-slate-500">
+                </div>
+              </div>
+
+              <button type="submit" class="w-full bg-electric hover:bg-electric-light transition-colors text-graphite-950 font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-electricGlow text-sm mt-2">
+                <i data-lucide="send" class="w-4 h-4"></i>
+                Enviar e Receber Orçamento no WhatsApp
+              </button>
+              <p class="text-[11px] text-center text-slate-400">Atendimento ágil em horário comercial. Plantão emergencial 24h.</p>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 10. FAQ SECTION ================= -->
+<section id="faq" class="py-24 bg-white">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center mb-14 reveal">
+      <span class="text-electric-dark text-xs font-bold tracking-[0.2em] uppercase">Tire Suas Dúvidas</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">Perguntas Frequentes</h2>
+    </div>
+
+    <div class="space-y-4">
+
+      <div class="faq-item reveal bg-metal-50 rounded-2xl border border-slate-200 overflow-hidden">
+        <button class="faq-toggle focus-ring w-full flex items-center justify-between gap-4 text-left p-6" aria-expanded="false">
+          <span class="font-bold text-slate-900 text-sm sm:text-base">Como funciona a garantia de 1 ano dos serviços?</span>
+          <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-electric-dark shrink-0"></i>
+        </button>
+        <div class="faq-content px-6">
+          <p class="text-slate-600 pb-6 text-sm leading-relaxed">
+            Ao concluir o trabalho, emitimos um certificado formal de garantia com validade de 12 meses cobrindo toda a mão de obra executada e os materiais fornecidos pela nossa equipe.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal bg-metal-50 rounded-2xl border border-slate-200 overflow-hidden">
+        <button class="faq-toggle focus-ring w-full flex items-center justify-between gap-4 text-left p-6" aria-expanded="false">
+          <span class="font-bold text-slate-900 text-sm sm:text-base">Vocês atendem chamados de emergência ou curto-circuito?</span>
+          <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-electric-dark shrink-0"></i>
+        </button>
+        <div class="faq-content px-6">
+          <p class="text-slate-600 pb-6 text-sm leading-relaxed">
+            Sim! Contamos com equipe de plantão 24h para emergências elétricas graves, como cheiro de queimado no quadro, perda total de energia ou risco iminente de faíscas.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal bg-metal-50 rounded-2xl border border-slate-200 overflow-hidden">
+        <button class="faq-toggle focus-ring w-full flex items-center justify-between gap-4 text-left p-6" aria-expanded="false">
+          <span class="font-bold text-slate-900 text-sm sm:text-base">Vocês emitem laudo elétrico e ART/TRT para seguradoras?</span>
+          <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-electric-dark shrink-0"></i>
+        </button>
+        <div class="faq-content px-6">
+          <p class="text-slate-600 pb-6 text-sm leading-relaxed">
+            Sim. Nossos profissionais possuem registro ativo junto ao CFT e CREA, emitindo Anotação de Responsabilidade Técnica (ART/TRT) aceita por seguradoras, condomínios e Corpo de Bombeiros.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal bg-metal-50 rounded-2xl border border-slate-200 overflow-hidden">
+        <button class="faq-toggle focus-ring w-full flex items-center justify-between gap-4 text-left p-6" aria-expanded="false">
+          <span class="font-bold text-slate-900 text-sm sm:text-base">Quais as formas de pagamento disponíveis?</span>
+          <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-electric-dark shrink-0"></i>
+        </button>
+        <div class="faq-content px-6">
+          <p class="text-slate-600 pb-6 text-sm leading-relaxed">
+            Aceitamos Pix (com condição especial para pagamentos à vista), transferência bancária, boleto faturado (para empresas/CNPJ) e cartões de crédito em até 10x sem juros.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 11. BANNER FINAL CTA ================= -->
+<section class="grad-hero-electric bg-noise py-20 text-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+    <div class="w-16 h-16 rounded-2xl bg-electric/20 border border-electric/30 flex items-center justify-center text-electric-light mx-auto mb-6">
+      <i data-lucide="zap" class="w-8 h-8 fill-current"></i>
+    </div>
+    <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white mb-4">
+      Não espere uma sobrecarga virar um curto-circuito perigoso.
+    </h2>
+    <p class="text-slate-300 text-base sm:text-lg mb-8 max-w-xl mx-auto">
+      Agende uma vistoria técnica preventiva ou solicite seu orçamento rápido direto no nosso WhatsApp.
+    </p>
+    <a href="https://wa.me/5511974121551?text=Ol%C3%A1!%20Quero%20agendar%20uma%20visita%20t%C3%A9cnica%20el%C3%A9trica." target="_blank" rel="noopener noreferrer"
+       class="focus-ring group inline-flex items-center gap-2.5 bg-electric hover:bg-electric-light text-graphite-950 font-bold text-base px-9 py-4 rounded-full transition-all shadow-electricGlow hover:scale-105">
+      <i data-lucide="message-circle" class="w-5 h-5"></i>
+      Falar com Eletricista Especialista Agora
+    </a>
+  </div>
+</section>
+
+<!-- ================= 12. FOOTER / INFORMAÇÕES LOCAIS ================= -->
+<footer id="contato" class="bg-graphite-950 text-slate-400 pt-16 pb-8 border-t border-white/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12">
+
+      <div>
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-9 h-9 rounded-lg bg-electric flex items-center justify-center text-graphite-950">
+            <i data-lucide="zap" class="w-4.5 h-4.5 fill-current"></i>
+          </div>
+          <span class="font-display text-lg font-bold text-white">Volt<span class="text-electric-light">Expert</span></span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+          Engenharia elétrica e instalações residenciais e comerciais em estrita conformidade com a NBR-5410 e garantia formal de 1 ano por escrito.
+        </p>
+        <p class="text-[11px] text-slate-500">CFT/CREA Registro Ativo · CNPJ 00.000.000/0001-00</p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">Navegação</h4>
+        <ul class="space-y-2.5 text-xs text-slate-400">
+          <li><a href="#servicos" class="hover:text-electric-light transition-colors">Serviços Elétricos</a></li>
+          <li><a href="#diferenciais" class="hover:text-electric-light transition-colors">Por Que Nos Escolher</a></li>
+          <li><a href="#processo" class="hover:text-electric-light transition-colors">Como Trabalhamos</a></li>
+          <li><a href="#triagem" class="hover:text-electric-light transition-colors">Orçamento &amp; Triagem</a></li>
+          <li><a href="#depoimentos" class="hover:text-electric-light transition-colors">Depoimentos de Clientes</a></li>
+          <li><a href="#faq" class="hover:text-electric-light transition-colors">Dúvidas Frequentes</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">Contato &amp; Plantão</h4>
+        <ul class="space-y-2.5 text-xs text-slate-400">
+          <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-electric-light"></i> (11) 97412-1551</li>
+          <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4 text-electric-light"></i> contato@voltexpert.com.br</li>
+          <li class="flex items-start gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-electric-light mt-0.5"></i> Av. Paulista, 1000 – Bela Vista, São Paulo / SP</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">Horário de Atendimento</h4>
+        <ul class="space-y-2 text-xs text-slate-400">
+          <li class="flex justify-between"><span>Segunda a Sexta:</span> <strong class="text-slate-200">08h às 19h</strong></li>
+          <li class="flex justify-between"><span>Sábado:</span> <strong class="text-slate-200">08h às 14h</strong></li>
+          <li class="flex justify-between text-electric-light font-semibold"><span>Plantão 24h:</span> <strong>Emergências</strong></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+      <p>© <span id="year"></span> VoltExpert. Todos os direitos reservados.</p>
+      <p>Site modelo por <span class="text-electric-light font-semibold">Willon Sites</span></p>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= SCRIPT COMPLETO ================= -->
+<script>
+  lucide.createIcons();
+
+  // Mobile Menu
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconMenu = document.getElementById('icon-menu');
+  const iconClose = document.getElementById('icon-close');
+  let menuOpen = false;
+
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    menuBtn.setAttribute('aria-expanded', menuOpen);
+    if (menuOpen) {
+      mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+      mobileMenu.style.opacity = '1';
+      iconMenu.classList.add('hidden');
+      iconClose.classList.remove('hidden');
+    } else {
+      mobileMenu.style.maxHeight = '0px';
+      mobileMenu.style.opacity = '0';
+      iconMenu.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    }
+  }
+
+  menuBtn.addEventListener('click', toggleMenu);
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => { if (menuOpen) toggleMenu(); });
+  });
+
+  // FAQ Accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-toggle');
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(openItem => {
+        if (openItem !== item) {
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-toggle').setAttribute('aria-expanded', 'false');
+        }
+      });
+      item.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  // Formulário de Triagem Elétrica Integrado ao WhatsApp
+  const eletricaForm = document.getElementById('eletricaForm');
+  eletricaForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const imovel = document.getElementById('tipoImovel').value;
+    const servico = document.getElementById('servicoDesejado').value;
+    const nome = document.getElementById('nomeCliente').value.trim();
+    const whats = document.getElementById('whatsCliente').value.trim();
+
+    const mensagem = `Olá! Meu nome é ${nome}. Gostaria de um orçamento elétrico para um(a) ${imovel}. O serviço necessário é: ${servico}. Meu WhatsApp para contato é: ${whats}.`;
+    const url = `https://wa.me/5511974121551?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank', 'noopener');
+  });
+
+  // Scroll Reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Ano Dinâmico
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
